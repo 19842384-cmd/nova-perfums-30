@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>NOVA PERFUMS | Tu esencia, tu identidad</title>
+  <meta name="description" content="Descubre perfumes elegantes, modernos y únicos en NOVA PERFUMS.">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Tipografías -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --gold: #c9a45c;
+      --gold-light: #e8d3a0;
+      --bg: #101010;
+      --surface: #191919;
+      --text: #f7f4ee;
+      --muted: #b9b4aa;
+      --border: #33302a;
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background .3s, color .3s;
+    }
+
+    body.light-mode {
+      --bg: #f7f4ee;
+      --surface: #ffffff;
+      --text: #209be7;
+      --muted: #686157;
+      --border: #e5dfd3;
+    }
+
+    .navbar {
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .navbar-brand {
+      color: var(--gold) !important;
+      font-weight: 800;
+      letter-spacing: 3px;
+    }
+
+    .nav-link {
+      color: var(--text) !important;
+      font-size: .85rem;
+    }
+
+    .nav-link:hover,
+    .gold {
+      color: var(--gold) !important;
+    }
+
+    .btn-gold {
+      background: var(--gold);
+      color: #613f04;
+      border: 1px solid var(--gold);
+      border-radius: 2px;
+      padding: 12px 22px;
+      font-weight: 700;
+      transition: .25s;
+    }
+
+    .btn-gold:hover {
+      background: var(--gold-light);
+      border-color: var(--gold-light);
+      color: #7a6848;
+      transform: translateY(-2px);
+    }
+
+    .btn-outline-gold {
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      border-radius: 2px;
+      padding: 10px 18px;
+    }
+
+    .btn-outline-gold:hover {
+      background: var(--gold);
+      color: #17130c;
+    }
+
+    .hero {
+      min-height: 610px;
+      display: flex;
+      align-items: center;
+      background:
+        linear-gradient(90deg, rgba(12,12,12,.96), rgba(12,12,12,.65), rgba(12,12,12,.1)),
+        url('https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=1800&q=85')
+        center/cover;
+    }
+
+    .hero-content {
+      max-width: 650px;
+      padding-top: 65px;
+      padding-bottom: 65px;
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      letter-spacing: 4px;
+      font-size: .75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3, .serif {
+      font-family: 'Playfair Display', serif;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 7vw, 5.6rem);
+      line-height: 1.05;
+      margin: 20px 0;
+    }
+
+    .section {
+      padding: 85px 0;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      margin: 12px 0;
+    }
+
+    .muted {
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .product-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      height: 100%;
+      transition: transform .3s, border-color .3s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-7px);
+      border-color: var(--gold);
+    }
+
+    .product-img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      background: #24211b;
+    }
+
+    .product-info {
+      padding: 22px;
+    }
+
+    .price {
+      color: var(--gold);
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .tag {
+      display: inline-block;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-size: .7rem;
+      letter-spacing: 1px;
+      padding: 5px 9px;
+      text-transform: uppercase;
+    }
+
+    .feature {
+      padding: 28px;
+      height: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+
+    .feature-icon {
+      font-size: 2rem;
+      color: var(--gold);
+      margin-bottom: 15px;
+    }
+
+    .about-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 35px;
+    }
+
+    .contact-input {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 0;
+      padding: 13px;
+    }
+
+    .contact-input:focus {
+      background: var(--surface);
+      color: var(--text);
+      border-color: var(--gold);
+      box-shadow: 0 0 0 .15rem rgba(201,164,92,.15);
+    }
+
+    .contact-input::placeholder {
+      color: var(--muted);
+    }
+
+    .tech-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 24px;
+      height: 100%;
+    }
+
+    pre {
+      background: #171717;
+      color: #e8d3a0;
+      border: 1px solid #38342d;
+      padding: 18px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+    }
+
+    .quiz-option {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 13px;
+      margin: 8px 0;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      border-radius: 3px;
+    }
+
+    .quiz-option:hover {
+      border-color: var(--gold);
+    }
+
+    .quiz-option.selected {
+      border: 2px solid var(--gold);
+    }
+
+    .quiz-option.correct {
+      border-color: #218838;
+    }
+
+    .quiz-option.wrong {
+      border-color: #dc3545;
+    }
+
+    .carousel-item img {
+      height: 390px;
+      width: 100%;
+      object-fit: cover;
+      filter: brightness(.72);
+    }
+
+    .carousel-caption {
+      bottom: 25%;
+    }
+
+    footer {
+      padding: 45px 0;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .form-message {
+      min-height: 25px;
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        min-height: 520px;
+        background-position: 60% center;
+      }
+
+      .hero-content {
+        padding-top: 60px;
+      }
+
+      .section {
+        padding: 60px 0;
+      }
+
+      .product-img {
+        height: 240px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- NAVEGACIÓN -->
+<nav class="navbar navbar-expand-lg sticky-top">
+  <div class="container">
+    <a class="navbar-brand" href="#inicio">NOVA PERFUMS</a>
+
+    <button class="navbar-toggler btn-outline-gold" type="button"
+      data-bs-toggle="collapse" data-bs-target="#menu"
+      aria-label="Abrir menú">
+      ☰
+    </button>
+
+    <div class="collapse navbar-collapse" id="menu">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+        <li class="nav-item"><a class="nav-link" href="#index" data-i18n="navHome">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" href="#perfuemes" data-i18n="navProducts">Perfumes</a></li>
+        <li class="nav-item"><a class="nav-link" href="#nosotros" data-i18n="navAbout">Nosotros</a></li>
+        <li class="nav-item"><a class="nav-link" href="#tecnologias" data-i18n="navTech">Tecnologías</a></li>
+        <li class="nav-item"><a class="nav-link" href="#cuestionario" data-i18n="navQuiz">Cuestionario</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contacto" data-i18n="navContact">Contacto</a></li>
+        <li><a href="formulario.html">formulario</a></li>
+      </ul>
+
+      <div class="d-flex gap-2 ms-lg-3 my-3 my-lg-0">
+        <button class="btn btn-outline-gold btn-sm" id="languageButton"
+          type="button" aria-label="Cambiar idioma">EN</button>
+        <button class="btn btn-outline-gold btn-sm" id="themeButton"
+          type="button">☀ Claro</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+```html
+<!-- FORMULARIO DE CONTACTO NOVA PERFUMS -->
+<section id="contacto" class="nova-contact">
+  <div class="contact-container">
+    <p class="contact-label">NOVA PERFUMS</p>
+    <h2>Contáctanos</h2>
+    <p class="contact-description">
+      ¿Tienes alguna consulta sobre nuestros perfumes?
+      Escríbenos y estaremos encantados de ayudarte.
+    </p>
+
+    <form id="discordForm">
+      <label for="nombre">Nombre (máximo 10 caracteres)</label>
+      <input
+        type="text"
+        id="nombre"
+        maxlength="10"
+        placeholder="Tu nombre"
+        required
+      >
+
+      <label for="correo">Correo electrónico</label>
+      <input
+        type="email"
+        id="correo"
+        placeholder="tucorreo@ejemplo.com"
+        required
+      >
+
+      <label for="mensaje">Mensaje (máximo 500 caracteres)</label>
+      <textarea
+        id="mensaje"
+        maxlength="500"
+        rows="5"
+        placeholder="Escribe tu consulta..."
+        required
+      ></textarea>
+
+      <p id="contador">0 / 500 caracteres</p>
+
+      <button type="submit" id="enviar">
+        Enviar mensaje
+      </button>
+
+      <p id="resultado" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<style>
+.nova-contact {
+  background: #101010;
+  color: #f7f4ee;
+  padding: 70px 20px;
+  font-family: Arial, sans-serif;
+}
+
+.contact-container {
+  max-width: 600px;
+  margin: auto;
+  padding: 35px;
+  background: #191919;
+  border: 1px solid #c9a45c;
+  border-radius: 8px;
+}
+
+.contact-label {
+  color: #c9a45c;
+  letter-spacing: 4px;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.contact-container h2 {
+  font-size: 35px;
+  margin: 10px 0;
+}
+
+.contact-description {
+  color: #b9b4aa;
+  line-height: 1.7;
+  margin-bottom: 25px;
+}
+
+#discordForm label {
+  display: block;
+  margin: 18px 0 8px;
+}
+
+#discordForm input,
+#discordForm textarea {
+  display: block;
+  width: 100%;
+  padding: 13px;
+  background: #101010;
+  color: white;
+  border: 1px solid #49443a;
+  border-radius: 4px;
+  font: inherit;
+}
+
+#discordForm input:focus,
+#discordForm textarea:focus {
+  outline: 1px solid #c9a45c;
+  border-color: #c9a45c;
+}
+
+#contador {
+  text-align: right;
+  color: #b9b4aa;
+  font-size: 12px;
+  margin-top: 7px;
+}
+
+#enviar {
+  width: 100%;
+  margin-top: 15px;
+  padding: 14px;
+  background: #c9a45c;
+  color: #17130c;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#enviar:hover {
+  background: #e8d3a0;
+}
+
+#enviar:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+#resultado {
+  margin-top: 15px;
+  line-height: 1.5;
+}
+</style>
+
+<script>
+const form = document.getElementById("discordForm");
+const mensaje = document.getElementById("mensaje");
+const contador = document.getElementById("contador");
+const resultado = document.getElementById("resultado");
+const boton = document.getElementById("enviar");
+
+// Pega aquí la URL de tu webhook.
+// Para una página publicada, es más seguro usar un servidor.
+const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1557797442685108307/QG9qa1MjJCVO4gwV-UQ7O72mia28PEFImbSE2ZvlEj4gkQn6QsO7xhnBJ6qlQJaZwbzg";
+
+mensaje.addEventListener("input", () => {
+  contador.textContent = `${mensaje.value.length} / 500 caracteres`;
+});
+
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const nombre = document.getElementById("nombre").value.trim();
+  const correo = document.getElementById("correo").value.trim();
+  const texto = mensaje.value.trim();
+
+  resultado.style.color = "#ff7777";
+
+  if (!nombre || !correo || !texto) {
+    resultado.textContent = "Completa todos los campos.";
+    return;
+  }
+
+  if (nombre.length > 10) {
+    resultado.textContent = "El nombre no puede superar 10 caracteres.";
+    return;
+  }
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) {
+    resultado.textContent = "Escribe un correo electrónico válido.";
+    return;
+  }
+
+  if (texto.length > 500) {
+    resultado.textContent = "El mensaje no puede superar 500 caracteres.";
+    return;
+  }
+
+  if (
+    !DISCORD_WEBHOOK_URL.startsWith("https://discord.com/api/webhooks/") ||
+    DISCORD_WEBHOOK_URL === "PEGA_AQUI_TU_WEBHOOK"
+  ) {
+    resultado.textContent = "Primero debes configurar el webhook.";
+    return;
+  }
+
+  boton.disabled = true;
+  boton.textContent = "Enviando...";
+
+  try {
+    const respuesta = await fetch(DISCORD_WEBHOOK_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        allowed_mentions: { parse: [] },
+        embeds: [{
+          title: "Nuevo mensaje - NOVA PERFUMS",
+          color: 13280348,
+          fields: [
+            { name: "Nombre", value: nombre },
+            { name: "Correo", value: correo },
+            { name: "Mensaje", value: texto }
+          ],
+          footer: { text: "Formulario de contacto de NOVA PERFUMS" },
+          timestamp: new Date().toISOString()
+        }]
+      })
+    });
+
+    if (!respuesta.ok) {
+      throw new Error("Discord no aceptó el mensaje.");
+    }
+
+    resultado.style.color = "#7ee0a0";
+    resultado.textContent = "¡Mensaje enviado correctamente!";
+    form.reset();
+    contador.textContent = "0 / 500 caracteres";
+
+  } catch (error) {
+    resultado.style.color = "#ff7777";
+    resultado.textContent =
+      "No se pudo enviar. Revisa el webhook y la conexión. Si sigue fallando, puede ser un bloqueo del navegador.";
+    console.error(error);
+  } finally {
+    boton.disabled = false;
+    boton.textContent = "Enviar mensaje";
+  }
+});
+</script>
+</body>
+</html>
