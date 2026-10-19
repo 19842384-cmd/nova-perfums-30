@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Herramientas de Google | NOVA PERFUMS</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+  <style>
+    :root {
+      --gold: #c9a45c;
+      --bg: #101010;
+      --surface: #191919;
+      --text: #f7f4ee;
+      --muted: #b9b4aa;
+      --border: #39352d;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+      transition: background .3s, color .3s;
+    }
+
+    body.light-mode {
+      --bg: #f7f4ee;
+      --surface: #ffffff;
+      --text: #29251e;
+      --muted: #686157;
+      --border: #e5dfd3;
+    }
+
+    .navbar, footer {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand, .gold {
+      color: var(--gold);
+    }
+
+    .brand {
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-decoration: none;
+    }
+
+    .hero {
+      padding: 75px 0;
+      background: linear-gradient(135deg, var(--surface), var(--bg));
+    }
+
+    .tool-card {
+      height: 100%;
+      padding: 24px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--surface);
+      transition: transform .3s, border-color .3s;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--gold);
+    }
+
+    .tool-icon {
+      width: 58px;
+      height: 58px;
+      object-fit: contain;
+      margin-bottom: 16px;
+    }
+
+    .muted {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .btn-gold {
+      background: var(--gold);
+      color: #17130c;
+      border: 1px solid var(--gold);
+      font-weight: bold;
+    }
+
+    .btn-gold:hover {
+      background: #e8d3a0;
+      color: #17130c;
+    }
+
+    .form-control, .form-select {
+      background-color: var(--surface);
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .form-control::placeholder {
+      color: var(--muted);
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .6s, transform .6s;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg sticky-top">
+  <div class="container">
+    <a class="brand" href="index.html">NOVA PERFUMS</a>
+
+    <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse" data-bs-target="#menu"
+            aria-label="Abrir menú">
+      <span>☰</span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="menu">
+      <div class="navbar-nav ms-auto align-items-lg-center gap-2">
+        <a class="nav-link" href="index.html">Inicio</a>
+        <a class="nav-link" href="#herramientas">Herramientas</a>
+        <button class="btn btn-outline-warning btn-sm"
+                id="themeButton">☀ Claro</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<header class="hero text-center">
+  <div class="container fade-up">
+    <p class="gold text-uppercase fw-bold">
+      Tecnología para aprender
+    </p>
+    <h1 class="display-4 fw-bold">
+      15 herramientas de Google
+    </h1>
+    <p class="muted mx-auto mt-3" style="max-width:700px">
+      Descubre aplicaciones que ayudan a estudiar, crear documentos,
+      organizar actividades, investigar y trabajar en equipo.
+    </p>
+    <a href="#herramientas" class="btn btn-gold mt-3">
+      Explorar herramientas
+    </a>
+  </div>
+</header>
+
+<section class="container py-5" id="herramientas">
+
+  <div class="text-center mb-4 fade-up">
+    <h2 class="gold">Catálogo de herramientas</h2>
+    <p class="muted">
+      Busca una herramienta o filtra por su utilidad.
+    </p>
+  </div>
+
+  <div class="row g-3 mb-4">
+    <div class="col-md-8">
+      <input type="search" id="searchInput"
+             class="form-control"
+             placeholder="Buscar una herramienta..."
+             aria-label="Buscar herramientas">
+    </div>
+
+    <div class="col-md-4">
+      <select id="categoryFilter" class="form-select"
+              aria-label="Filtrar por categoría">
+        <option value="todas">Todas las categorías</option>
+        <option value="estudio">Estudio</option>
+        <option value="productividad">Productividad</option>
+        <option value="comunicacion">Comunicación</option>
+        <option value="investigacion">Investigación</option>
+      </select>
+    </div>
+  </div>
+
+  <p class="muted" id="resultCount" aria-live="polite"></p>
+
+  <div class="row g-4" id="toolsGrid"></div>
+
+  <p id="emptyMessage" class="text-center muted d-none mt-4">
+    No se encontraron herramientas con esa búsqueda.
+  </p>
+</section>
+
+<section class="container pb-5">
+  <div class="p-4 rounded-4 border"
+       style="border-color:var(--border)!important;background:var(--surface)">
+    <h2 class="gold">¿Qué significa que una función sea premium?</h2>
+    <p class="muted mb-0">
+      Una herramienta puede ofrecer funciones gratuitas y otras de pago.
+      En Google Workspace for Education, algunas funciones avanzadas
+      dependen de la licencia de la institución. Por eso, no significa
+      que las 15 aplicaciones sean completamente premium en Classroom.
+    </p>
+    <a class="gold d-inline-block mt-3"
+       href="https://edu.google.com/workspace-for-education/editions/compare-editions/"
+       target="_blank" rel="noopener">
+      Consultar la comparación oficial de planes
+    </a>
+  </div>
+</section>
+
+<footer class="py-4">
+  <div class="container text-center">
+    <a href="index.html" class="brand">NOVA PERFUMS</a>
+    <p class="muted mt-2 mb-0">
+      Proyecto educativo · Herramientas digitales de Google
+    </p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+const tools = [
+  {
+    name: "Google Drive",
+    category: "productividad",
+    description: "Guarda, organiza y comparte archivos en la nube.",
+    url: "https://drive.google.com",
+    icon: "https://cdn.simpleicons.org/googledrive"
+  },
+  {
+    name: "Google Docs",
+    category: "estudio",
+    description: "Redacta trabajos y colabora en documentos.",
+    url: "https://docs.google.com",
+    icon: "https://cdn.simpleicons.org/googledocs"
+  },
+  {
+    name: "Google Sheets",
+    category: "productividad",
+    description: "Organiza datos, calcula valores y crea gráficos.",
+    url: "https://sheets.google.com",
+    icon: "https://cdn.simpleicons.org/googlesheets"
+  },
+  {
+    name: "Google Slides",
+    category: "estudio",
+    description: "Crea presentaciones para exposiciones escolares.",
+    url: "https://slides.google.com",
+    icon: "https://cdn.simpleicons.org/googleslides"
+  },
+  {
+    name: "Google Forms",
+    category: "estudio",
+    description: "Elabora encuestas, formularios y cuestionarios.",
+    url: "https://forms.google.com",
+    icon: "https://cdn.simpleicons.org/googleforms"
+  },
+  {
+    name: "Google Meet",
+    category: "comunicacion",
+    description: "Realiza videollamadas y reuniones virtuales.",
+    url: "https://meet.google.com",
+    icon: "https://cdn.simpleicons.org/googlemeet"
+  },
+  {
+    name: "Gmail",
+    category: "comunicacion",
+    description: "Envía y recibe mensajes y archivos por correo.",
+    url: "https://mail.google.com",
+    icon: "https://cdn.simpleicons.org/gmail"
+  },
+  {
+    name: "Google Calendar",
+    category: "productividad",
+    description: "Organiza fechas, eventos y recordatorios.",
+    url: "https://calendar.google.com",
+    icon: "https://cdn.simpleicons.org/googlecalendar"
+  },
+  {
+    name: "Google Classroom",
+    category: "estudio",
+    description: "Consulta clases, materiales y tareas escolares.",
+    url: "https://classroom.google.com",
+    icon: "https://cdn.simpleicons.org/googleclassroom"
+  },
+  {
+    name: "Google Sites",
+    category: "productividad",
+    description: "Diseña sitios web sin necesidad de programar.",
+    url: "https://sites.google.com",
+    icon: "https://cdn.simpleicons.org/googlesites"
+  },
+  {
+    name: "Google Keep",
+    category: "productividad",
+    description: "Guarda notas rápidas y listas de pendientes.",
+    url: "https://keep.google.com",
+    icon: "https://cdn.simpleicons.org/googlekeep"
+  },
+  {
+    name: "Google Tasks",
+    category: "productividad",
+    description: "Crea tareas y marca las actividades completadas.",
+    url: "https://tasks.google.com",
+    icon: "https://cdn.simpleicons.org/googletasks"
+  },
+  {
+    name: "Google Translate",
+    category: "investigacion",
+    description: "Traduce palabras y textos a otros idiomas.",
+    url: "https://translate.google.com",
+    icon: "https://cdn.simpleicons.org/googletranslate"
+  },
+  {
+    name: "Google Earth",
+    category: "investigacion",
+    description: "Explora lugares del mundo mediante vistas geográficas.",
+    url: "https://earth.google.com",
+    icon: "https://cdn.simpleicons.org/googleearth"
+  },
+  {
+    name: "Google Gemini",
+    category: "investigacion",
+    description: "Ayuda a explorar ideas y comprender conceptos.",
+    url: "https://gemini.google.com",
+    icon: "https://cdn.simpleicons.org/googlegemini"
+  }
+];
+
+const grid = document.getElementById("toolsGrid");
+const searchInput = document.getElementById("searchInput");
+const categoryFilter = document.getElementById("categoryFilter");
+
+function renderTools() {
+  const search = searchInput.value.toLowerCase().trim();
+  const category = categoryFilter.value;
+
+  const filtered = tools.filter(tool => {
+    const matchesText =
+      tool.name.toLowerCase().includes(search) ||
+      tool.description.toLowerCase().includes(search);
+
+    const matchesCategory =
+      category === "todas" || tool.category === category;
+
+    return matchesText && matchesCategory;
+  });
+
+  grid.innerHTML = filtered.map(tool => `
+    <div class="col-sm-6 col-lg-4 fade-up">
+      <article class="tool-card">
+        <img class="tool-icon"
+             src="${tool.icon}"
+             alt=""
+             loading="lazy"
+             onerror="this.style.display='none'">
+
+        <h3 class="h5 gold">${tool.name}</h3>
+        <p class="muted">${tool.description}</p>
+
+        <a class="btn btn-gold btn-sm"
+           href="${tool.url}"
+           target="_blank"
+           rel="noopener">
+          Visitar herramienta ↗
+        </a>
+      </article>
+    </div>
+  `).join("");
+
+  document.getElementById("resultCount").textContent =
+    `Se muestran ${filtered.length} de ${tools.length} herramientas.`;
+
+  document.getElementById("emptyMessage")
+    .classList.toggle("d-none", filtered.length !== 0);
+
+  observeCards();
+}
+
+let observer;
+
+function observeCards() {
+  if (observer) observer.disconnect();
+
+  observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll(".fade-up").forEach(card => {
+    observer.observe(card);
+  });
+}
+
+searchInput.addEventListener("input", renderTools);
+categoryFilter.addEventListener("change", renderTools);
+
+const themeButton = document.getElementById("themeButton");
+
+function setTheme(theme) {
+  document.body.classList.toggle("light-mode", theme === "light");
+
+  document.documentElement.setAttribute(
+    "data-bs-theme", theme
+  );
+
+  themeButton.textContent =
+    theme === "light" ? "☾ Oscuro" : "☀ Claro";
+
+  localStorage.setItem("novaTheme", theme);
+}
+
+themeButton.addEventListener("click", () => {
+  const isLight = document.body.classList.contains("light-mode");
+  setTheme(isLight ? "dark" : "light");
+});
+
+setTheme(localStorage.getItem("novaTheme") || "dark");
+renderTools();
+</script>
+
+</body>
+</html>
