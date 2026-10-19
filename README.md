@@ -2,8 +2,8 @@
 
 **Estudiante:** [FLOR NAHOMY HERNÁNDEZ BOLAÑOS]
 **Fecha:** 19 de octubre de 2026
-**Enlace al Sitio Web (Vercel):** https://tu-proyecto.vercel.app
-**Repositorio GitHub:** https://github.com/usuario/repositorio
+**Enlace al Sitio Web (Vercel):** https://vercel.com/flor-afbc/nova-perfums-30
+**Repositorio GitHub:** https://github.com/19842384-cmd/nova-perfums-30
 
 ---
 
